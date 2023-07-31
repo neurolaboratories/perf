@@ -30,6 +30,7 @@ export default async function () {
   ]
   const imagesCount = getRandomFromArray(LOAD_PROFILE);
   const imagesList = IMAGE_URLS.slice(0, imagesCount);
+  console.log(`Sending ${imagesCount} images`)
 
   await executeAsyncDetectionJob(DETECTION_JOB_UUID, imagesList);
 }

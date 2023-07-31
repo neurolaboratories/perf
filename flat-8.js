@@ -23,5 +23,6 @@ export const options = {
 export default async function () {
   const imagesList = IMAGE_URLS.slice(0, 8);
 
+  console.log(`Sending ${imagesList.length} images`)
   await executeAsyncDetectionJob(DETECTION_JOB_UUID, imagesList);
 }

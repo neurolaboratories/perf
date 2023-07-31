@@ -38,7 +38,7 @@ Why is this important?
 * To complete the processing of a large batch of image, we can measure the time it takes to process the last image to have its detections computed from said batch. This metric is helpful to understand the completeness of entire batches of images, even though responses for individual images are available quicker, as highlighted by the **Average processing time per image**. We measure this as a worst-case-scenario, to showcase the longest amount of time before the final image is processed at the peak case of 100img/s. 
 
 What are the best numbers to highlight this?
-* Longest time to complete final image in batch observed when sending a continuous stream of images of 8 imgs/s with peaks of 100 images per second: **305 seconds** (~5 minutes)
+* Longest time to complete final image in batch observed when sending a continuous stream of images of 8 imgs/s with peaks of 100 images per second: **305 seconds** (~5 minutes) # TODO: change to random
 
 HTTP response time 
 * Why is this important?
@@ -46,7 +46,7 @@ This metric is helpful to understand the timing of our response to HTTP requests
 
 What are the best numbers to highlight this?
 * Mean HTTP response time when sending batches of 8 images per second: **234 ms**
-* Mean HTTP response time when sending batches of 100 images each 10 seconds: **395 ms**
+* Mean HTTP response time when sending batches of 100 images each 10 seconds: **395 ms** # TODO: change ro random
 
 
 ### Scenario 1 - 8 images per second (flat)
@@ -92,7 +92,7 @@ Every 10 seconds, a batch of 100 images is sent for processing. We designed this
 
 ![Processing timings](results/flat-100-processing.png)
 
-We can see a rather flat timing response, with continous processing responses. Occasional spikes, no large timing increases.
+We can see a rather flat timing response, with continuous processing responses. Occasional spikes, no large timing increases.
 
 
 **HTTP response time ([pdf](results/flat-100.pdf))**:
@@ -105,7 +105,7 @@ We can see a rather flat timing response, with continous processing responses. O
 ----
 
 ### Scenario 3 - random number of images
-We send batches with a random number of images (between 8 and 100) at each second. We designed this scenario to show the robustness of our solution to a varible amount of images that require processing.
+We send batches with a random number of images (between 8 and 100) at each second. We designed this scenario to show the robustness of our solution to a variable amount of images that require processing.
 
 **Processing duration per image**
 
@@ -119,7 +119,7 @@ We send batches with a random number of images (between 8 and 100) at each secon
 
 ![Processing timings](results/mixed-processing.png)
 
-We have a flat reponse, with variable timing increases because of the randomness aspect of the requests.
+We have a flat response, with variable timing increases because of the randomness aspect of the requests.
 
 
 **HTTP response time ([pdf](results/mixed.pdf))**:
@@ -191,7 +191,7 @@ Then for each scenario execute one of the following commands (replace `k6` for `
 
 ### Get the results
 
-1. Http response timings will be available in open browser tab and in console output
+1. HTTP response timings will be available in open browser tab and in console output
 
-2. Processing durations will be available at `https://staging.neurolabs.ai/detection-job/${DETECTION_JOB_UUID}/performance`
+2. Processing durations will be available at `https://app.neurolabs.ai/detection-job/${DETECTION_JOB_UUID}/performance`
 The page will show graph with processing times over last hour

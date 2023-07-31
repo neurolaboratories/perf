@@ -1,6 +1,6 @@
 # Performance benchmarks for Neurolabs platform
 
-In order to ensure business as usual, we have optimized for a low error rate at peaks of 100 images per second. We successfully tested our system to respond with processed images within a couple of seconds in non-peak scenarios. Our performance during peaks results in a higher processing time for images while responding in a timely manner. The highest processing time we encountered was around 5 minutes when processing 100 images per second after a continuous stream of images at 8 images per second.
+In order to ensure business as usual, we have optimized for a low error rate at peaks of 100 images per second. We successfully tested our system to respond with processed images within a couple of seconds in non-peak scenarios. Our performance during peaks results in a higher processing time for images while responding in a timely manner. The highest processing time we encountered was 4.5 minutes (in the 95 Percentile) when processing 100 images per second after a continuous stream of images at 8 images per second.
 
 ## Metrics
 
@@ -12,6 +12,7 @@ While conducting the load tests of our software we focused on four key metrics t
 
 We tested our performance using four different scenarios that best fit the real-world usage of our system.
 
+We use the mean, P5 (5th Percentile) and P95 (95th Percentile) to measure our timings. The P5 measurement is the time for which 5% of the requests are faster than the one reported and 95% of them are slower (an optimistic measurement), while the P95 measurement represents the time for which 95% of requests are faster and 5% are slower (a pessimistic measurement)
 
 ## Results
 
@@ -38,7 +39,7 @@ Why is this important?
 * To complete the processing of a large batch of image, we can measure the time it takes to process the last image to have its detections computed from said batch. This metric is helpful to understand the completeness of entire batches of images, even though responses for individual images are available quicker, as highlighted by the **Average processing time per image**. We measure this as a worst-case-scenario, to showcase the longest amount of time before the final image is processed at the peak case of 100img/s. 
 
 What are the best numbers to highlight this?
-* Longest time to complete final image in batch observed when sending a continuous stream of images of 8 imgs/s with peaks of 100 images per second: **305 seconds** (~5 minutes) # TODO: change to random
+* Longest time to complete final image in a batch observed when sending a continuous stream of a random amount of images (between 8 and 100) : *** 259s in the 95th Percentile** (~4.5 minutes) 
 
 HTTP response time 
 * Why is this important?
@@ -46,7 +47,7 @@ This metric is helpful to understand the timing of our response to HTTP requests
 
 What are the best numbers to highlight this?
 * Mean HTTP response time when sending batches of 8 images per second: **234 ms**
-* Mean HTTP response time when sending batches of 100 images each 10 seconds: **395 ms** # TODO: change ro random
+* Mean HTTP response time when sending random batches of images (between 8 and 100 in each batch): **262 ms**
 
 
 ### Scenario 1 - 8 images per second (flat)

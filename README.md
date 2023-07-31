@@ -9,35 +9,100 @@
 
 ## Results
 
-### Scenario 1
+### Scenario 1 (flat 8)
 Every second 8 images are sent for processing
 
-expected results: ...
+**Processing duration per image**
+
+* mean: 1.77s
+
+**Time to process last image in batch**
+
+* mean: 14s
+* p5: 12s
+* p95: 63s
+
+![Processing timings](results/flat-8-processing.png)
+
+**HTTP response time ([pdf](results/flat-8.pdf))**:
+
+* mean: 234.64ms
+* p95: 281.11ms
+
+![Requests timings](results/flat-8-requests.png)
 
 
-### Scenario 2
+### Scenario 2 (flat 100)
 Every 10 seconds 100 images are sent for processing
 
 
-### Scenario 3
+**Processing duration per image**
+
+* mean: 0.87s
+
+**Time to process last image in batch**
+
+* mean: 87s
+* p5: 24s
+* p95: 196s
+
+
+![Processing timings](results/flat-100-processing.png)
+
+**HTTP response time ([pdf](results/flat-100.pdf))**:
+
+* mean: 395.15ms
+* p95: 557.19ms
+
+![Requests timings](results/flat-100-requests.png)
+
+
+### Scenario 3 (mixed)
 Random number of images from 8 to 100 send for processing each second.
 
 **Processing duration per image**
-mean: 7.01s
 
-**HTTP response time**
-mean: 262.24ms
-p95: 535.33ms
+* mean: 7s
 
-![Requests timings](results/mixed-requests.png)
+**Time to process last image in batch**
 
-[report](results/mixed.pdf)
+* mean: 168s
+* p5: 26s
+* p95: 259s
 
 ![Processing timings](results/mixed-processing.png)
 
+**HTTP response time ([pdf](results/mixed.pdf))**:
 
-### Scenario 4
+* mean: 262.24ms
+* p95: 535.33ms
+
+![Requests timings](results/mixed-requests.png)
+
+
+### Scenario 4 (spike)
 Every second 8 images are sent for processing, but for ~6% requests in the middle of scenario 100 images sent instead.
+
+
+**Processing duration per image**
+
+* mean: 1.4s
+
+**Time to process last image in batch**
+
+* mean: 19s
+* p5: 12s
+* p95: 214s
+
+![Processing timings](results/spike-processing.png)
+
+**HTTP response time ([pdf](results/spike.pdf))**:
+
+* mean: 242.27ms
+* p95: 438.98ms
+
+![Requests timings](results/spike-requests.png)
+
 
 
 ## Replicate results

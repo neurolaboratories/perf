@@ -31,6 +31,7 @@ Every second 8 images are sent for processing
 
 ![Requests timings](results/flat-8-requests.png)
 
+----
 
 ### Scenario 2 (flat 100)
 Every 10 seconds 100 images are sent for processing
@@ -56,6 +57,7 @@ Every 10 seconds 100 images are sent for processing
 
 ![Requests timings](results/flat-100-requests.png)
 
+----
 
 ### Scenario 3 (mixed)
 Random number of images from 8 to 100 send for processing each second.
@@ -79,6 +81,7 @@ Random number of images from 8 to 100 send for processing each second.
 
 ![Requests timings](results/mixed-requests.png)
 
+----
 
 ### Scenario 4 (spike)
 Every second 8 images are sent for processing, but for ~6% requests in the middle of scenario 100 images sent instead.
@@ -104,6 +107,7 @@ Every second 8 images are sent for processing, but for ~6% requests in the middl
 ![Requests timings](results/spike-requests.png)
 
 
+----
 
 ## Replicate results
 

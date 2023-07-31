@@ -1,6 +1,6 @@
 # Performance benchmarks for Neurolabs platform
 
-In order to ensure business as usual, we have optimized for a low error rate at peaks of 100 images per second. We successfully tested our system to respond with processed images within a couple of seconds in non-peak scenarios. Our performance during peaks results in a higher processing time for images while responding in a timely manner. The highest processing time we encountered was 4.5 minutes (in the 95 Percentile) when processing 100 images per second after a continuous stream of images at 8 images per second.
+In order to ensure business as usual, we have optimized for a low error rate at peaks of 100 images per second. We successfully tested our system to respond with processed images within a couple of seconds in non-peak scenarios. Our performance during peaks results in a higher processing time for images while responding in a timely manner. The highest processing time we encountered was 4 minutes (in the 95 Percentile) when processing 100 images per second after a continuous stream of images at 8 images per second.
 
 ## Metrics
 

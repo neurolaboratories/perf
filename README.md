@@ -1,108 +1,158 @@
 # Performance benchmarks for Neurolabs platform
 
+In order to ensure business as usual, we have optimized for a low error rate at peaks of 100 images per second. We successfully tested our system to respond with processed images within a couple of seconds in non-peak scenarios. Our performance during peaks results in a higher processing time for images while responding in a timely manner. The highest processing time we encountered was around 5 minutes when processing 100 images per second after a continuous stream of images at 8 images per second.
 
 ## Metrics
 
+While conducting the load tests of our software we focused on four key metrics to highlight our performance:
+* Error rate
+* Average processing time per image
+* Time to process last image in batch 
+* HTTP response time 
 
-## Architecture overview
+We tested our performance using four different scenarios that best fit the real-world usage of our system.
 
 
 ## Results
 
-### Scenario 1 (flat 8)
-Every second 8 images are sent for processing
+### Error rate
+
+Why is this important?
+* We’ve optimised for a low error rate when handling peaks of a 100img/s to ensure a business-as-usual integration of our solution.
+
+What are the best numbers to highlight this?
+* Error rate when sending 8 imgs/s for 30 seconds: **0%**
+* Error rate when sending 100 imgs/s every 10 seconds: **0%**
+
+### Average processing time per image
+
+Why is this important?
+* This shows our service response time operate within the agreed time-frame, the low processing time we have is critical for integrating our solution into your ecosystem. We highlight the average amount of time it takes to process each individual image in the batch request.
+
+What are the best numbers to highlight this?
+* Average time per image at 8 imgs/s for 30 seconds: **1.77s**
+* Average with a continuous rate of 8 imgs/s with peaks of sending 100 images: **1.4s**
+
+### Time to process last image in batch 
+Why is this important?
+* To complete the processing of a large batch of image, we can measure the time it takes to process the last image to have its detections computed from said batch. This metric is helpful to understand the completeness of entire batches of images, even though responses for individual images are available quicker, as highlighted by the **Average processing time per image**. We measure this as a worst-case-scenario, to showcase the longest amount of time before the final image is processed at the peak case of 100img/s. 
+
+What are the best numbers to highlight this?
+* Longest time to complete final image in batch observed when sending a continuous stream of images of 8 imgs/s with peaks of 100 images per second: **305 seconds** (~5 minutes)
+
+HTTP response time 
+* Why is this important?
+This metric is helpful to understand the timing of our response to HTTP requests to process images. We process images in batches in an async manner, our HTTP return will be a confirmation of starting the detection process, the results will be returned in the callback request or by calling our detection API.
+
+What are the best numbers to highlight this?
+* Mean HTTP response time when sending batches of 8 images per second: **234 ms**
+* Mean HTTP response time when sending batches of 100 images each 10 seconds: **395 ms**
+
+
+### Scenario 1 - 8 images per second (flat)
+Every second, a batch of 8 images is sent for processing. We designed this scenario as a regular load for our system. 
 
 **Processing duration per image**
 
-* mean: 1.77s
+* Mean: 1.77s
 
 **Time to process last image in batch**
 
-* mean: 14s
-* p5: 12s
-* p95: 63s
+* Mean: 14s
+* P5: 12s
+* P95: 63s
 
 ![Processing timings](results/flat-8-processing.png)
 
+We can see a rather flat timing response, with no large spikes.
+
 **HTTP response time ([pdf](results/flat-8.pdf))**:
 
-* mean: 234.64ms
-* p95: 281.11ms
+* Mean: 234.64ms
+* P95: 281.11ms
 
 ![Requests timings](results/flat-8-requests.png)
 
 ----
 
-### Scenario 2 (flat 100)
-Every 10 seconds 100 images are sent for processing
+### Scenario 2 - 100 images each 10 seconds (flat)
+Every 10 seconds, a batch of 100 images is sent for processing. We designed this scenario to test the peaks that can be handled by our system. 
 
 
 **Processing duration per image**
 
-* mean: 0.87s
+* Mean: 0.87s
 
 **Time to process last image in batch**
 
-* mean: 87s
-* p5: 24s
-* p95: 196s
+* Mean: 87s
+* P5: 24s
+* P95: 196s
 
 
 ![Processing timings](results/flat-100-processing.png)
 
+We can see a rather flat timing response, with continous processing responses. Occasional spikes, no large timing increases.
+
+
 **HTTP response time ([pdf](results/flat-100.pdf))**:
 
-* mean: 395.15ms
-* p95: 557.19ms
+* Mean: 395.15ms
+* P95: 557.19ms
 
 ![Requests timings](results/flat-100-requests.png)
 
 ----
 
-### Scenario 3 (mixed)
-Random number of images from 8 to 100 send for processing each second.
+### Scenario 3 - random number of images
+We send batches with a random number of images (between 8 and 100) at each second. We designed this scenario to show the robustness of our solution to a varible amount of images that require processing.
 
 **Processing duration per image**
 
-* mean: 7s
+* Mean: 7s
 
 **Time to process last image in batch**
 
-* mean: 168s
-* p5: 26s
-* p95: 259s
+* Mean: 168s
+* P5: 26s
+* P95: 259s
 
 ![Processing timings](results/mixed-processing.png)
 
+We have a flat reponse, with variable timing increases because of the randomness aspect of the requests.
+
+
 **HTTP response time ([pdf](results/mixed.pdf))**:
 
-* mean: 262.24ms
-* p95: 535.33ms
+* Mean: 262.24ms
+* P95: 535.33ms
 
 ![Requests timings](results/mixed-requests.png)
 
 ----
 
-### Scenario 4 (spike)
-Every second 8 images are sent for processing, but for ~6% requests in the middle of scenario 100 images sent instead.
+### Scenario 4 - peaks measurement
+Every second, we send a batch of 8 images for processing, but for ~6% of the requests in the middle of the execution we send a batch of 100 images instead. We designed this scenario to highlight the performance of our system at the defined peak time.
 
 
 **Processing duration per image**
 
-* mean: 1.4s
+* Mean: 1.4s
 
 **Time to process last image in batch**
 
-* mean: 19s
-* p5: 12s
-* p95: 214s
+* Mean: 19s
+* P5: 12s
+* P95: 214s
 
 ![Processing timings](results/spike-processing.png)
 
+We can observe the timing spikes during the peaks, but they are followed by a considerable decreases after and stays at optimal levels during the rest of the scenario.
+
 **HTTP response time ([pdf](results/spike.pdf))**:
 
-* mean: 242.27ms
-* p95: 438.98ms
+* Mean: 242.27ms
+* P95: 438.98ms
 
 ![Requests timings](results/spike-requests.png)
 

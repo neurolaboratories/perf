@@ -12,7 +12,7 @@ While conducting the load tests of our software we focused on four key metrics t
 
 We tested our performance using four different scenarios that best fit the real-world usage of our system.
 
-We use the mean, P5 (5th Percentile) and P95 (95th Percentile) to measure our timings. The P5 measurement is the time for which 5% of the requests are faster than the one reported and 95% of them are slower (an optimistic measurement), while the P95 measurement represents the time for which 95% of requests are faster and 5% are slower (a pessimistic measurement)
+We use the mean, P5 (5th Percentile) and P95 (95th Percentile) to measure our timings. The P5 measurement is the time for which 5% of the requests are faster than the one (an optimistic measurement), while the P95 measurement represents the time for which 95% of requests are faster (a pessimistic measurement)
 
 ## Results
 
